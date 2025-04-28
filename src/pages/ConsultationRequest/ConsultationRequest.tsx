@@ -42,9 +42,17 @@ export const ConsultationRequest = () => {
     message: "",
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSelectChange = (e: SelectChangeEvent) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -97,7 +105,7 @@ export const ConsultationRequest = () => {
                     label="Ваше ім'я"
                     name="name"
                     value={formData.name}
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                     variant="outlined"
                   />
                 </Grid>
@@ -109,7 +117,7 @@ export const ConsultationRequest = () => {
                     name="email"
                     type="email"
                     value={formData.email}
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                     variant="outlined"
                   />
                 </Grid>
@@ -120,7 +128,7 @@ export const ConsultationRequest = () => {
                     label="Телефон"
                     name="phone"
                     value={formData.phone}
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                     variant="outlined"
                   />
                 </Grid>
@@ -130,7 +138,7 @@ export const ConsultationRequest = () => {
                     <Select
                       name="specialist"
                       value={formData.specialist}
-                      onChange={handleChange}
+                      onChange={handleSelectChange}
                       label="Спеціаліст"
                     >
                       {specialists.map((specialist) => (
@@ -147,7 +155,7 @@ export const ConsultationRequest = () => {
                     <Select
                       name="consultationType"
                       value={formData.consultationType}
-                      onChange={handleChange}
+                      onChange={handleSelectChange}
                       label="Тип консультації"
                     >
                       {consultationTypes.map((type) => (
@@ -166,7 +174,7 @@ export const ConsultationRequest = () => {
                     name="preferredDate"
                     type="date"
                     value={formData.preferredDate}
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                     variant="outlined"
                     InputLabelProps={{ shrink: true }}
                   />
@@ -179,7 +187,7 @@ export const ConsultationRequest = () => {
                     name="preferredTime"
                     type="time"
                     value={formData.preferredTime}
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                     variant="outlined"
                     InputLabelProps={{ shrink: true }}
                   />
@@ -190,7 +198,7 @@ export const ConsultationRequest = () => {
                     label="Додаткова інформація"
                     name="message"
                     value={formData.message}
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                     variant="outlined"
                     multiline
                     rows={4}

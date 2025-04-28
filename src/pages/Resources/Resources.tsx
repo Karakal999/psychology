@@ -253,27 +253,20 @@ export const Resources = () => {
                     </MotionTypography>
                     <MotionButton
                       variants={buttonVariants}
-                      className="resource-button"
-                      variant="contained"
-                      color="primary"
-                      href={resource.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      whileHover="hover"
+                      onClick={() => window.open(resource.link, "_blank")}
                       sx={{
-                        width: "100%",
-                        py: 1.5,
-                        borderRadius: 2,
-                        fontSize: "1rem",
-                        fontWeight: 500,
+                        background: resource.gradient,
+                        color: "white",
                         textTransform: "none",
-                        background:
-                          "linear-gradient(135deg, #07575B 0%, #003B46 100%)",
+                        fontWeight: "bold",
+                        marginTop: 2,
                         "&:hover": {
-                          boxShadow: "0 4px 12px rgba(7, 87, 91, 0.3)",
+                          background: resource.gradient,
                         },
                       }}
                     >
-                      Перейти
+                      Learn More
                     </MotionButton>
                   </CardContent>
                 </MotionCard>
