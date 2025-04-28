@@ -134,18 +134,17 @@ export const Resources = () => {
           sx={{ textAlign: "center", mb: 8 }}
         >
           <MotionTypography
+            variant="h2"
+            gutterBottom
+            sx={{
+              textAlign: "center",
+              color: "primary.main",
+              mb: 4,
+              fontSize: { xs: "2rem", md: "2.5rem" },
+            }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            variant="h2"
-            component="h1"
-            gutterBottom
-            sx={{
-              color: "primary.main",
-              fontSize: { xs: "2rem", md: "2.5rem" },
-              fontWeight: "bold",
-              mb: 2,
-            }}
           >
             Корисні ресурси
           </MotionTypography>
@@ -223,18 +222,17 @@ export const Resources = () => {
                       {resource.icon}
                     </MotionBox>
                     <MotionTypography
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 }}
                       variant="h6"
-                      component="h3"
                       gutterBottom
                       sx={{
                         color: "primary.main",
                         fontWeight: 600,
-                        fontSize: "1.25rem",
+                        fontSize: "1.2rem",
                         mb: 2,
                       }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
                     >
                       {resource.title}
                     </MotionTypography>

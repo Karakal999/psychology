@@ -6,6 +6,7 @@ export interface AuthError {
 export interface User {
   email: string;
   uid: string;
+  name?: string;
 }
 
 export interface AuthResponse {

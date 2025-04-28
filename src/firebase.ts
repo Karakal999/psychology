@@ -1,7 +1,12 @@
 import { Auth, User } from './types/auth';
 
 // Mock storage for user data
+interface StoredUser extends User {
+  password: string;
+}
+
 let currentUser: User | null = null;
+const users: StoredUser[] = [];
 const subscribers: ((user: User | null) => void)[] = [];
 
 const notifySubscribers = () => {
@@ -14,21 +19,26 @@ export const auth: Auth = {
   },
   
   async signInWithEmailAndPassword(email: string, password: string) {
-    // In a real app, we would validate credentials here
-    currentUser = {
-      email,
-      uid: Math.random().toString(36).substring(7),
-    };
+    const user = users.find(u => u.email === email && u.password === password);
+    if (!user) {
+      throw new Error('Invalid email or password');
+    }
+    currentUser = { email: user.email, uid: user.uid };
     notifySubscribers();
     return { user: currentUser };
   },
 
   async createUserWithEmailAndPassword(email: string, password: string) {
-    // In a real app, we would validate and store the user here
-    currentUser = {
+    if (users.some(u => u.email === email)) {
+      throw new Error('Email already in use');
+    }
+    const newUser: StoredUser = {
       email,
+      password,
       uid: Math.random().toString(36).substring(7),
     };
+    users.push(newUser);
+    currentUser = { email: newUser.email, uid: newUser.uid };
     notifySubscribers();
     return { user: currentUser };
   },

@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Typography, Box, Button, Avatar } from "@mui/material";
 import { useAuth } from "../../contexts/AuthContext";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const MotionBox = motion(Box);
 const MotionTypography = motion(Typography);
@@ -29,9 +30,19 @@ const itemVariants = {
 };
 
 const Profile: React.FC = () => {
-  const { user, isAuthenticated, logout } = useAuth();
+  const { currentUser, signOut } = useAuth();
+  const navigate = useNavigate();
 
-  if (!isAuthenticated || !user) {
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      navigate("/login");
+    } catch (error) {
+      console.error("Failed to log out:", error);
+    }
+  };
+
+  if (!currentUser) {
     return (
       <Container maxWidth="md">
         <MotionBox
@@ -60,6 +71,8 @@ const Profile: React.FC = () => {
     );
   }
 
+  const displayName = currentUser.name || currentUser.email.split("@")[0];
+
   return (
     <Container maxWidth="md">
       <MotionBox
@@ -74,15 +87,15 @@ const Profile: React.FC = () => {
         <MotionBox variants={itemVariants}>
           <Avatar
             sx={{ width: 120, height: 120, mb: 2 }}
-            alt={user.name}
+            alt={displayName}
             src={`https://ui-avatars.com/api/?name=${encodeURIComponent(
-              user.name
+              displayName
             )}&background=random`}
           />
         </MotionBox>
 
         <MotionTypography variant="h4" gutterBottom variants={itemVariants}>
-          {user.name}
+          {displayName}
         </MotionTypography>
 
         <MotionTypography
@@ -90,14 +103,14 @@ const Profile: React.FC = () => {
           color="text.secondary"
           variants={itemVariants}
         >
-          {user.email}
+          {currentUser.email}
         </MotionTypography>
 
         <MotionBox mt={4} variants={itemVariants}>
           <MotionButton
             variant="contained"
             color="error"
-            onClick={logout}
+            onClick={handleLogout}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

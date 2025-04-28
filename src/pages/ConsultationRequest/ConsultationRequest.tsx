@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Container,
   Typography,
@@ -11,25 +12,21 @@ import {
   MenuItem,
   Card,
   CardContent,
+  SelectChangeEvent,
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 const specialists = [
-  { id: "olga", name: "Ольга Петренко", specialization: "Клінічний психолог" },
-  {
-    id: "ivan",
-    name: "Іван Коваленко",
-    specialization: "Психолог-консультант",
-  },
-  { id: "maria", name: "Марія Сидоренко", specialization: "Дитячий психолог" },
+  { id: "1", name: "Анна Петренко", specialization: "Психотерапевт" },
+  { id: "2", name: "Іван Ковальчук", specialization: "Сімейний психолог" },
+  { id: "3", name: "Марія Шевченко", specialization: "Дитячий психолог" },
 ];
 
 const consultationTypes = [
-  { value: "individual", label: "Індивідуальна консультація" },
-  { value: "family", label: "Сімейна терапія" },
-  { value: "group", label: "Групові заняття" },
+  { value: "individual", label: "Індивідуальна" },
+  { value: "family", label: "Сімейна" },
+  { value: "group", label: "Групова" },
 ];
 
 export const ConsultationRequest = () => {
@@ -46,12 +43,12 @@ export const ConsultationRequest = () => {
   });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>
+    e: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name as string]: value,
+      [name]: value,
     }));
   };
 

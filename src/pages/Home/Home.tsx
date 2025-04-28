@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 
 const MotionCard = motion.create(Card);
 const MotionBox = motion.create(Box);
-const MotionTypography = motion.create(Typography);
+const MotionTypography = motion(Typography);
 const MotionButton = motion.create(Button);
 
 const containerVariants = {
@@ -135,26 +135,26 @@ export const Home = () => {
             sx={{ textAlign: "center", mb: 8 }}
           >
             <MotionTypography
-              variants={itemVariants}
               variant="h2"
-              component="h1"
               gutterBottom
               sx={{
-                fontWeight: "bold",
+                textAlign: "center",
                 color: "primary.main",
+                mb: 4,
                 fontSize: { xs: "2rem", md: "2.5rem" },
               }}
+              variants={containerVariants}
             >
               Ласкаво просимо до світу психологічної підтримки
             </MotionTypography>
             <MotionTypography
-              variants={itemVariants}
               variant="h5"
               sx={{
                 mb: 4,
                 color: "text.secondary",
                 fontSize: { xs: "1.2rem", md: "1.5rem" },
               }}
+              variants={containerVariants}
             >
               Ми допомагаємо вам досягти емоційного благополуччя та
               особистісного зростання
@@ -230,18 +230,21 @@ export const Home = () => {
                           {service.icon}
                         </MotionBox>
                         <MotionTypography
-                          variants={itemVariants}
                           variant="h6"
-                          component="h3"
                           gutterBottom
-                          sx={{ color: "#003B46" }}
+                          sx={{
+                            textAlign: "center",
+                            color: "text.secondary",
+                            mb: 6,
+                          }}
+                          variants={containerVariants}
                         >
                           {service.title}
                         </MotionTypography>
                         <MotionTypography
-                          variants={itemVariants}
                           variant="body2"
                           sx={{ color: "#07575B", lineHeight: 1.6 }}
+                          variants={itemVariants}
                         >
                           {service.description}
                         </MotionTypography>
